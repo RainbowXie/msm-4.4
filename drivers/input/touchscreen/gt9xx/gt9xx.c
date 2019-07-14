@@ -1455,7 +1455,7 @@ static int gtp_create_file(struct goodix_ts_data *ts)
 	else
 		dev_info(&client->dev, "create proc entry %s success\n",
 			 GT91XX_CONFIG_PROC_FILE);
-
+/*
 	gtp_dt2w_proc = NULL;
 	gtp_dt2w_proc = proc_create("gt9xx_dt2w", 0664, NULL, &dt2w_proc_ops);
 
@@ -1465,7 +1465,7 @@ static int gtp_create_file(struct goodix_ts_data *ts)
 	else
 		dev_info(&client->dev, "create proc entry %s success\n",
 				"gt9xx_dt2w");
-
+*/
 	ret = sysfs_create_group(&client->dev.kobj, &gtp_attr_group);
 
 	if (ret) {
@@ -1479,8 +1479,11 @@ static int gtp_create_file(struct goodix_ts_data *ts)
 
 	return 0;
 exit_free_config_proc:
+
 	remove_proc_entry(GT91XX_CONFIG_PROC_FILE, gtp_config_proc);
+/*
 	remove_proc_entry("gt9xx_dt2w", gtp_dt2w_proc);
+*/
 	return -ENODEV;
 }
 
@@ -2473,7 +2476,9 @@ static int gtp_drv_remove(struct i2c_client *client)
 	if (ts->tp_fw_version_proc)
 		proc_remove(ts->tp_fw_version_proc);
 	remove_proc_entry(GT91XX_CONFIG_PROC_FILE, gtp_config_proc);
+/*
 	remove_proc_entry("gt9xx_dt2w", gtp_dt2w_proc);
+*/
 	sysfs_remove_group(&client->dev.kobj, &gtp_attr_group);
 #ifdef CONFIG_TOUCHSCREEN_GT9XX_DEBUG
 	if (ts->pdata->create_wr_node)
